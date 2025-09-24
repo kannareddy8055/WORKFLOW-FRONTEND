@@ -1,0 +1,133 @@
+/* Main container */
+.depthead-dashboard {
+  max-width: 100vw;
+    min-height:100vh;
+    background: #f1f5f9;
+ 
+}
+
+/* Header */
+.header-container {
+  margin-bottom: 1.5rem;
+}
+
+/* Title */
+.dashboard-title {
+  font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: start;
+    padding-top:90px;
+    padding-bottom: 20px;
+    padding-left:35px;
+}
+
+/* Empty state */
+.no-requests {
+  text-align: center;
+    color: #64748b;
+    font-weight: 700;
+    font-size: 25px;
+    margin-top: 130px;
+}
+
+/* Request list */
+.request-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+/* Request card */
+.request-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.request-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Request info */
+.request-info h3 {
+  margin: 0 0 0.5rem;
+  color: #111827;
+  font-size: 1.2rem;
+}
+
+.request-info p {
+  margin: 0.3rem 0;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+/* Status colors */
+.status {
+  font-weight: bold;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.status.approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status.pending {
+  background: #fef9c3;
+  color: #92400e;
+}
+
+/* Buttons */
+.action-buttons {
+  display: flex;
+  gap: 0.6rem;
+  position: relative;
+  top:16px;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.approve-btn {
+  background: #16a34a;
+  color: white;
+}
+
+.approve-btn:hover {
+  background: #15803d;
+}
+
+.reject-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.reject-btn:hover {
+  background: #b91c1c;
+}
