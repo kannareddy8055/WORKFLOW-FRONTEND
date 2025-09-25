@@ -11,7 +11,7 @@ const MyRequests = () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         const response = await fetch(
-          `http://localhost:5000/requests/${user.id}`,
+          `https://workflow-backend-3.onrender.com/requests/${user.id}`,
           {
             method: "GET",
             headers: {

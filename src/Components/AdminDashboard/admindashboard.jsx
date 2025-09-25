@@ -16,7 +16,7 @@ const AdminDashboard = () => {
 
   const fetchChains = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/chains");
+      const res = await axios.get("https://workflow-backend-3.onrender.com/api/chains");
       setChains(res.data);
     } catch (err) {
       console.error("Error fetching chains", err);
@@ -26,7 +26,7 @@ const AdminDashboard = () => {
   const createChain = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/chains", {
+      await axios.post("https://workflow-backend-3.onrender.com/api/chains", {
         ...newChain,
         createdBy: JSON.parse(localStorage.getItem("user"))._id,
       });

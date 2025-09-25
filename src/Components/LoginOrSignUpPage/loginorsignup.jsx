@@ -66,7 +66,7 @@ const redirectByRole = (role) => {
   const role = selectedRole;
   console.log("Sending login request with:", { email, password, role });
   
-  const response = await fetch("http://localhost:5000/login", {
+  const response = await fetch("https://workflow-backend-3.onrender.com/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password, role }),
@@ -92,7 +92,7 @@ const redirectByRole = (role) => {
     e.preventDefault();
     const { name, email, password, confirmPassword} = formData;
     const role = selectedRole;
-    const response = await fetch('http://localhost:5000/signup', {
+    const response = await fetch('https://workflow-backend-3.onrender.com/signup', {
       method:"POST",
       headers: {
         "Content-Type":"application/json"

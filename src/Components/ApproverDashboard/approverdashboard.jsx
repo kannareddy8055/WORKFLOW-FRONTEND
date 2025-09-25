@@ -11,7 +11,7 @@ const ApproverDashboard = () => {
   // ✅ move fetchRequests here
   const fetchRequests = async () => {
     try {
-      const res = await fetch("http://localhost:5000/requests/manager/pending", {
+      const res = await fetch("https://workflow-backend-3.onrender.com/requests/manager/pending", {
         method:"GET",
         headers: { "Content-Type": "application/json",
           "Authorization": `Bearer ${Cookies.get('jwtToken')}`
@@ -35,7 +35,7 @@ const ApproverDashboard = () => {
 
   const handleAction = async (requestId, action) => {
     try {
-      await axios.post(`http://localhost:5000/requests/manager/${requestId}/action`, {
+      await axios.post(`https://workflow-backend-3.onrender.com/requests/manager/${requestId}/action`, {
         approverId: user._id,
         action,
         comments
