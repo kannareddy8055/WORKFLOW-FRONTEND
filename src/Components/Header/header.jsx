@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./Header.css";
+import "./header.css";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 const Header = () => {
