@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import "./MyRequests.css";
+import "./myrequests.css";
 import Header from "../Header/header";
 
 const MyRequests = () => {
