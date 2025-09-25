@@ -11,7 +11,7 @@ const DeptHeadDashboard = () => {
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get("https://workflow-backend-3.onrender.com/requests/depthead/pending");
+      const res = await axios.get("https://workflow-backend-5.onrender.com/requests/depthead/pending");
       setRequests(res.data.requests || []);
     } catch (err) {
       console.error("Error fetching DeptHead requests", err);
@@ -28,7 +28,7 @@ const DeptHeadDashboard = () => {
 
   const handleAction = async (requestId, action) => {
     try {
-      await axios.post(`https://workflow-backend-3.onrender.com/requests/depthead/${requestId}/action`, {
+      await axios.post(`https://workflow-backend-5.onrender.com/requests/depthead/${requestId}/action`, {
         approverId: user._id,
         role: user.role,
         action,
