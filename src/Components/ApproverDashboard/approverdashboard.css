@@ -6,6 +6,7 @@
     padding-top:90px;
     padding-bottom:20px;
     padding-left:35px;
+    margin-left:35px;
 }
 
 .approver-dashboard-container {
@@ -162,3 +163,23 @@ button:active {
   position:relative;
   top:15px;
 }
+.status-filter-container {
+  display: flex;
+  justify-content: flex-end;
+  justify-content: space-between;
+  padding: 10px 35px 0 0;
+}
+.status-filter {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+  height:40px;
+  width:150px;
+  margin-top:85px;
+  margin-right:40px;
+  
+}
+ 

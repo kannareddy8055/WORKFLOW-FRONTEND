@@ -11,7 +11,7 @@ const MyRequests = () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         const response = await fetch(
-          `https://workflow-backend-5.onrender.com/requests/${user.id}`,
+          `http://localhost:5000/requests/${user.id}`,
           {
             method: "GET",
             headers: {
@@ -64,10 +64,7 @@ const MyRequests = () => {
                 </div>
               <div className="request-details1">
 
-                
-
                 <span className="request-type1">Request Type : <span>{req.type}</span></span>
-              
               
                 { req.type === "BUDGET" &&  <span className="request-amount1">Amount : <span>{req.amount}</span></span>}
                 { req.type !== "BUDGET" &&  <span className="request-duration1">------</span>}

@@ -17,9 +17,7 @@ const LoginOrSignUp = () => {
   const navigate = useNavigate();
   const roles = ['Employee', 'Manager', 'Dept Head', 'Director'];
 
-  const handleRoleSelect = (role) => {
-    setSelectedRole(role);
-  };
+ 
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -66,7 +64,7 @@ const redirectByRole = (role) => {
   const role = selectedRole;
   console.log("Sending login request with:", { email, password, role });
   
-  const response = await fetch("https://workflow-backend-5.onrender.com/login", {
+  const response = await fetch("http://localhost:5000/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password, role }),
@@ -92,7 +90,7 @@ const redirectByRole = (role) => {
     e.preventDefault();
     const { name, email, password, confirmPassword} = formData;
     const role = selectedRole;
-    const response = await fetch('https://workflow-backend-5.onrender.com/signup', {
+    const response = await fetch('http://localhost:5000/signup', {
       method:"POST",
       headers: {
         "Content-Type":"application/json"
@@ -150,17 +148,7 @@ useEffect(() => {
         </div>
       </header>
 
-            <div className="role-selection">
-              {roles.map(role => (
-                <button
-                  key={role}
-                  className={`role-button ${selectedRole === role ? 'active' : ''}`}
-                  onClick={() => handleRoleSelect(role)}
-                >
-                  {role}
-                </button>
-              ))}
-            </div>
+            
             
         <div className="auth-container">
           <div className={`${activeTab === 'Login' ? 'login-card' : 'signup-card'}`}>
@@ -183,6 +171,22 @@ useEffect(() => {
            
             <form onSubmit={activeTab === 'Login' ? handleLogin : handleSignUp}>
              <div className="auth-form">
+               
+               <div className="form-group">
+                <label className="form-label">Role</label>
+                <select
+                  value={selectedRole}
+                  onChange={(e) => setSelectedRole(e.target.value)}
+                  className="form-select"
+                  placeholder='Select Role'
+                >
+                  {roles.map(role => (
+                    <option key={role} value={role}>{role}</option>
+                  ))}
+                </select>
+              </div>
+
+
                 {activeTab === 'Sign Up' &&<div className="form-group">
                   <label htmlFor="name" className="form-label">Name</label>
                   <input
@@ -209,6 +213,8 @@ useEffect(() => {
                   onChange={handleInputChange}
                 />
               </div>
+               
+              
 
               <div className="form-group">
                 <label htmlFor="password" className="form-label">Password</label>

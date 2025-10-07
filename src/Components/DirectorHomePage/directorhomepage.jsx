@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { Plus } from 'lucide-react';
 import './directorhomepage.css'; // Import the CSS file
 import Header from '../Header/header';
 
@@ -11,8 +10,6 @@ const DirectorHomePage = () => {
   useEffect(() => {
     setIsVisible(true);
   }, []);
-
-  
 
   const handleViewRequests = () => {
     console.log('Viewing my requests...');
