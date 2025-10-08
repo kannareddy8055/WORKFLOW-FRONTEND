@@ -1,0 +1,31 @@
+.approval-filter {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #bdbdbd;
+  background: #f9f9f9;
+  font-size: 0.7rem;
+  color: #333;
+  margin: 10px 0;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.approval-filter:focus {
+  border-color: #1976d2;
+  background: #fff;
+}
+
+.approval-filter option {
+  color: #333;
+  background: #fff;
+}
+
+.helloo{
+  margin-bottom: 35px;
+}
+
+.helloo1{
+  position: relative;
+  top:12px;
+}
+

@@ -19,6 +19,7 @@ import ApproverDashboard from "./Components/ApproverDashboard/approverdashboard.
 import DeptHeadDashboard from "./Components/DeptHeadDashboard/deptheaddashboard.jsx";
 // Admin pages
 import AdminDashboard from "./Components/AdminDashboard/admindashboard.jsx";
+import AdminHomePage from "./Components/AdminHomePage/adminhomepage.jsx";
 
 function App() {
   return (
@@ -78,6 +79,15 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute allowedRoles={["Admin"]}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
         
         <Route
           path="/director/dashboard"
@@ -120,7 +130,7 @@ function App() {
           path="/admin"
           element={
             <ProtectedRoute allowedRoles={["Admin"]}>
-              <AdminDashboard />
+              <AdminHomePage />
             </ProtectedRoute>
           }
         />

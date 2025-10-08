@@ -1,74 +1,91 @@
-// src/pages/Admin/AdminDashboard.jsx
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from 'js-cookie';
+import Header from "../Header/header";
+import "./admindashboard.css";
+import AdminRequestCard from "../AdminRequestCard/adminrequestcard.jsx";
 
 const AdminDashboard = () => {
-  const [chains, setChains] = useState([]);
-  const [newChain, setNewChain] = useState({
-    name: "",
-    requestType: "LEAVE",
-  });
+  const [requests, setRequests] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState("Pending");
+  const status = ["Approved", "Rejected", "Pending"];
+  const user = JSON.parse(localStorage.getItem("user")); // logged-in approver
 
-  // Fetch all chains
-  useEffect(() => {
-    fetchChains();
-  }, []);
-
-  const fetchChains = async () => {
+  // ✅ move fetchRequests here
+  
+  const fetchRequests = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/chains");
-      setChains(res.data);
-    } catch (err) {
-      console.error("Error fetching chains", err);
-    }
-  };
-
-  const createChain = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post("http://localhost:5000/api/chains", {
-        ...newChain,
-        createdBy: JSON.parse(localStorage.getItem("user"))._id,
+      const res = await fetch(`https://workflow-backend-3.onrender.com/requests/admin/${selectedStatus.toLowerCase()}`, {
+        method:"GET",
+        headers: { "Content-Type": "application/json",
+          "Authorization": `Bearer ${Cookies.get('jwtToken')}`
+          }
       });
-      alert("Approval Chain created!");
-      fetchChains();
-      setNewChain({ name: "", requestType: "LEAVE" });
+      if (res.ok){
+        const data = await res.json();
+      setRequests(data.requests || []);} // <- backend sends { status, results, requests }
     } catch (err) {
-      console.error("Error creating chain", err);
+      console.error("Error fetching requests", err);
     }
   };
+
+  useEffect(() => {
+    fetchRequests();
+  }, [selectedStatus]);
+
+  // const onChangeComments = (e) => {
+  //   setComments(e.target.value);
+  // }
+
+  // const handleAction = async (requestId, action) => {
+  //   try {
+  //     await axios.post(`http://localhost:5000/requests/manager/${requestId}/action`, {
+  //       approverId: user._id,
+  //       action,
+  //       comments
+  //     });
+      
+  //     alert(`Request ${action}`);
+  //     setComments("");
+  //     fetchRequests(); // ✅ now this works
+  //   } catch (err) {
+  //     console.error("Error updating request", err);
+  //   }
+  // };
+
+
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h2>Admin Dashboard</h2>
-
-      <form onSubmit={createChain} style={{ marginBottom: "1rem" }}>
-        <input
-          type="text"
-          placeholder="Chain Name"
-          value={newChain.name}
-          onChange={(e) => setNewChain({ ...newChain, name: e.target.value })}
-          required
-        />
+    <div className="approver-dashboard-container">
+      <div className="header-container"><Header /></div>
+      <div className="status-filter-container">
+        <h2 className="approver-dashboard-title">Admin Dashboard</h2>
+        
         <select
-          value={newChain.requestType}
-          onChange={(e) => setNewChain({ ...newChain, requestType: e.target.value })}
+          value={selectedStatus}
+          onChange={(e) => setSelectedStatus(e.target.value)}
+          className="status-filter"
         >
-          <option value="LEAVE">Leave</option>
-          <option value="BUDGET">Budget</option>
-          <option value="PROJECT">Project</option>
+          {status.map((statusOption) => (
+            <option key={statusOption} value={statusOption}>
+              {statusOption}
+            </option>
+          ))}
         </select>
-        <button type="submit">Create Chain</button>
-      </form>
-
-      <h3>Existing Approval Chains</h3>
-      <ul>
-        {chains.map((chain) => (
-          <li key={chain._id}>
-            {chain.name} ({chain.requestType})
-          </li>
-        ))}
-      </ul>
+        
+      </div>
+      {requests.length === 0 ? (
+        <p className="no-requests-message">No {selectedStatus.toLowerCase()} requests</p>
+      ) : (
+        <ul className="request-list">
+      {requests.map((req) => (
+            <AdminRequestCard
+              key={req._id}
+              request={req}
+              fetchRequests={fetchRequests}/>
+          ))}
+    </ul>
+      )}
     </div>
   );
 };
