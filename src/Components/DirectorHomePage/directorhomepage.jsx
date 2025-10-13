@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import './directorhomepage.css'; // Import the CSS file
-import Header from '../Header/header';
+import Userheader from '../Userheader/UserHeader.jsx';
 
 const DirectorHomePage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,7 +19,7 @@ const DirectorHomePage = () => {
   return (
     <div className="workflow-container">
       {/* Background with overlay */}
-      <div className="home-header"><Header /></div>
+      <div className="home-header"><Userheader /></div>
       <div className="background-overlay"></div>
       
       {/* Animated background elements */}

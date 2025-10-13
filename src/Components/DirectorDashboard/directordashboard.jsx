@@ -1,7 +1,7 @@
 // src/pages/Approver/DeptHeadDashboard.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Header from "../Header/header.jsx";
+import Userheader from "../Userheader/UserHeader.jsx";
 import Cookies from "js-cookie"
 import "./directordashboard.css";
 import RequestCard from "../Requests/requests.jsx";
@@ -47,7 +47,7 @@ const DirectorDashboard = () => {
   return (
     <div className="depthead-dashboard">
       <div className="header-container">
-        <Header />
+        <Userheader />
       </div>
       <div className="status-filter-container">
         <h2 className="dashboard-title">Director Dashboard</h2>
