@@ -25,7 +25,7 @@ const RequestCard = ({ request, fetchRequests }) => {
 
   const handleAction = async (requestId, action) => {
     try {
-      await axios.post(`http://localhost:5000/requests/${role}/${requestId}/action`, {
+      await axios.post(`https://workflow-backend-3.onrender.com/requests/${role}/${requestId}/action`, {
         approverId: user._id,
         role: user.role,
         action,
@@ -42,7 +42,7 @@ const RequestCard = ({ request, fetchRequests }) => {
  useEffect(() => {   
   const fetchRequestUser = async (createdBy) => {
     try {
-      const RequestByUser = await axios.get(`http://localhost:5000/request/user/${createdBy}`);
+      const RequestByUser = await axios.get(`https://workflow-backend-3.onrender.com/request/user/${createdBy}`);
       setUserDetails(RequestByUser.data.user);
     } catch (err) {
       console.error("Error fetching user details", err);

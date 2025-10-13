@@ -18,7 +18,7 @@ const AdminRequestCard = ({ request, fetchRequests }) => {
   const handleSetCurrentStep = async (stepValue) => {
     try {
       await axios.post(
-        `http://localhost:5000/requests/admin/${request._id}/set-step`,
+        `https://workflow-backend-3.onrender.com/requests/admin/${request._id}/set-step`,
         { setCurrentStep: stepValue }
       );
       fetchRequests(); // Refresh the list
@@ -29,7 +29,7 @@ const AdminRequestCard = ({ request, fetchRequests }) => {
 
   const handleAction = async (requestId, action) => {
     try {
-      await axios.post(`http://localhost:5000/requests/${role}/${requestId}/action`, {
+      await axios.post(`https://workflow-backend-3.onrender.com/requests/${role}/${requestId}/action`, {
         approverId: user._id,
         role: user.role,
         action,
@@ -44,7 +44,7 @@ const AdminRequestCard = ({ request, fetchRequests }) => {
  useEffect(() => {   
   const fetchRequestUser = async (createdBy) => {
     try {
-      const RequestByUser = await axios.get(`http://localhost:5000/request/user/${createdBy}`);
+      const RequestByUser = await axios.get(`https://workflow-backend-3.onrender.com/request/user/${createdBy}`);
       setUserDetails(RequestByUser.data.user);
     } catch (err) {
       console.error("Error fetching user details", err);
@@ -80,7 +80,7 @@ fetchRequestUser(request.createdBy);
         
 
 
- { (request.status.toLowerCase() === "pending" && request.currentStep === roleId) && 
+{ (request.status.toLowerCase() === "pending" && request.currentStep === roleId && request.role === "Employee") && 
         <select
           value={stepValue || ""}
           onChange={(e) => setStepValue(e.target.value) }
@@ -95,8 +95,31 @@ fetchRequestUser(request.createdBy);
           <option value={7}>Dept Head and Director</option>
           <option value={3}>Manager, Dept Head and Director</option>
         </select>
-}     
+}
 
+{ (request.status.toLowerCase() === "pending" && request.currentStep === roleId && request.role === "Manager") && 
+        <select
+          value={stepValue || ""}
+          onChange={(e) => setStepValue(e.target.value) }
+          className="approval-filter"
+        >
+          <option value="">Select Step</option>
+          <option value={4}>Dept Head only</option>
+          <option value={5}>Director only</option>
+          <option value={7}>Dept Head and Director</option>
+        </select>
+}
+
+{ (request.status.toLowerCase() === "pending" && request.currentStep === roleId && request.role === "Dept Head") && 
+        <select
+          value={stepValue || ""}
+          onChange={(e) => setStepValue(e.target.value) }
+          className="approval-filter"
+        >
+          <option value="">Select Step</option>
+          <option value={5}>Director only</option>
+        </select>
+}
 
 { (request.status.toLowerCase() === "pending" && request.currentStep === roleId) && 
                 <div className="action-buttons helloo">

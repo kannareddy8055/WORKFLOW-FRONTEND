@@ -13,7 +13,10 @@ const ManagerHomePage = () => {
     setIsVisible(true);
   }, []);
 
-  
+  const handleCreateRequest = () => {
+    console.log('Creating new request...');
+    // Add your navigation logic here
+  };
 
   const handleViewRequests = () => {
     console.log('Viewing my requests...');
@@ -46,7 +49,15 @@ const ManagerHomePage = () => {
           </p>
           
           <div className="cta-buttons">
-            
+            <Link className="link" to="/manager/new-request"><button 
+              className={`primary-btn ${hoveredButton === 'primary' ? 'hovered' : ''}`}
+              onMouseEnter={() => setHoveredButton('primary')}
+              onMouseLeave={() => setHoveredButton(null)}
+              onClick={handleCreateRequest}
+            >
+              <Plus size={20} />
+              Create New Request
+            </button></Link>
             
             <Link className="link" to="/manager/dashboard"><button 
               className={`secondary-btn ${hoveredButton === 'secondary' ? 'hovered' : ''}`}

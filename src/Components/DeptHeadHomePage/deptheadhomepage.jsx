@@ -4,6 +4,7 @@ import { Plus } from 'lucide-react';
 import './deptheadhomepage.css'; // Import the CSS file
 import Header from '../Header/header';
 
+
 const DeptHeadHomePage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredButton, setHoveredButton] = useState(null);
@@ -12,7 +13,10 @@ const DeptHeadHomePage = () => {
     setIsVisible(true);
   }, []);
 
-  
+  const handleCreateRequest = () => {
+    console.log('Creating new request...');
+    // Add your navigation logic here
+  };
 
   const handleViewRequests = () => {
     console.log('Viewing my requests...');
@@ -45,7 +49,15 @@ const DeptHeadHomePage = () => {
           </p>
           
           <div className="cta-buttons">
-            
+            <Link className="link" to="/depthead/new-request"><button 
+              className={`primary-btn ${hoveredButton === 'primary' ? 'hovered' : ''}`}
+              onMouseEnter={() => setHoveredButton('primary')}
+              onMouseLeave={() => setHoveredButton(null)}
+              onClick={handleCreateRequest}
+            >
+              <Plus size={20} />
+              Create New Request
+            </button></Link>
             
             <Link className="link" to="/depthead/dashboard"><button 
               className={`secondary-btn ${hoveredButton === 'secondary' ? 'hovered' : ''}`}

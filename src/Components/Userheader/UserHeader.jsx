@@ -1,25 +1,22 @@
+
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./header.css";
+import "./index.css";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-
-const Header = () => {
+const Userheader = () => {
      const navigate = useNavigate() ;
      const user = JSON.parse(localStorage.getItem("user")) ;
      let homeRoute = "";
      let dashboardRoute = "";
-     let myRequestsRoute = "";
 
      if (user){
         if (user.role[0] === "Manager") {
           homeRoute = "/manager"
           dashboardRoute = "/manager/dashboard"
-          myRequestsRoute = "/manager/my-requests"
      } else if (user.role[0] === "Dept Head") {
           homeRoute = "/depthead"
           dashboardRoute = "/depthead/dashboard"
-          myRequestsRoute = "/depthead/my-requests"
      } else if (user.role[0] === "Director") {
           homeRoute = "/director"
           dashboardRoute = "/director/dashboard"
@@ -44,14 +41,6 @@ const Header = () => {
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Home
-          </NavLink>
-        </li>
-         <li>
-          <NavLink 
-            to={myRequestsRoute} 
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
-            MyRequests
           </NavLink>
         </li>
         <li>
@@ -80,4 +69,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Userheader;

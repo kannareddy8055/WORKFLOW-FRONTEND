@@ -15,11 +15,11 @@ const AdminDashboard = () => {
   
   const fetchRequests = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/requests/admin/${selectedStatus.toLowerCase()}`, {
+      const res = await fetch(`https://workflow-backend-3.onrender.com/requests/admin/${selectedStatus.toLowerCase()}`, {
         method:"GET",
         headers: { "Content-Type": "application/json",
           "Authorization": `Bearer ${Cookies.get('jwtToken')}`
-          }
+        }
       });
       if (res.ok){
         const data = await res.json();
@@ -66,6 +66,7 @@ const AdminDashboard = () => {
           onChange={(e) => setSelectedStatus(e.target.value)}
           className="status-filter"
         >
+
           {status.map((statusOption) => (
             <option key={statusOption} value={statusOption}>
               {statusOption}

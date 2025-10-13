@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../Header/header.jsx";
+import Cookies from "js-cookie"
 import "./deptheaddashboard.css";
 import { use } from "react";
 import RequestCard from "../Requests/requests.jsx";
@@ -16,7 +17,7 @@ const DeptHeadDashboard = () => {
    useEffect(() => {
         const fetchRequests1 = async () => {
           try {
-            const res = await fetch(`http://localhost:5000/requests/depthead/deptheadapproval`, {
+            const res = await fetch(`https://workflow-backend-3.onrender.com/requests/depthead/deptheadapproval`, {
               method:"PUT",
               headers: { "Content-Type": "application/json",
                           "Authorization": `Bearer ${Cookies.get('jwtToken')}`
@@ -32,7 +33,7 @@ const DeptHeadDashboard = () => {
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/requests/depthead/${selectedStatus.toLowerCase()}`);
+      const res = await axios.get(`https://workflow-backend-3.onrender.com/requests/depthead/${selectedStatus.toLowerCase()}`);
       setRequests(res.data.requests || []);
     } catch (err) {
       console.error("Error fetching DeptHead requests", err);

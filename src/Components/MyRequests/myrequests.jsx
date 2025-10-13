@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import "./myrequests.css";
-import Header from "../Header/header";
+import Userheader from '../Userheader/UserHeader';
+import Header from "../Header/header.jsx"
 
 const MyRequests = () => {
   const [requests, setRequests] = useState([]);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem("user"));
+        
         const response = await fetch(
-          `http://localhost:5000/requests/${user.id}`,
+          `https://workflow-backend-3.onrender.com/requests/${user.id}`,
           {
             method: "GET",
             headers: {
@@ -35,7 +37,7 @@ const MyRequests = () => {
 
   return (
     <div className="my-requests-container1">
-      <div className="header-container1"><Header /></div>
+      <div className="header-container1">{user.role[0] === "Employee" ? <Userheader /> : <Header/>}</div>
       <h2 className="my-requests-title1">📋 My Requests</h2>
       {requests.length === 0 ? (
         <p className="empty-message1">No requests found.</p>
@@ -71,45 +73,63 @@ const MyRequests = () => {
               
               </div>
               
-                  { req.comments && req.comments.length !== 0 && <div className="comments-section1">{req.comments.map((comment, index) => <p className="request-comments1"><span className="approver-comments1">{index===0 ? "Manager Comment :" : index===1 ? "Dept Head Comment :" : "Director Comment :"}</span> {comment==="" ? "No comment" : comment}</p>)}</div>}
+                  { req.comments && req.comments.length !== 0 && <div className="comments-section1">{req.comments.map((comment, index) => <p className="request-comments1"><span className="approver-comments1">{index===0 && user.role[0]==="Employee" ? "Manager Comment :" : (index===1 && user.role[0]==="Employee" || index === 0 && user.role[0]==="Manager")   ? "Dept Head Comment :" : "Director Comment :"}</span> {comment==="" ? "No comment" : comment}</p>)}</div>}
                   { req.comments && req.comments.length === 0 && <div className="comments-section12 ">No Comments</div>}
 
                   { req.comments.length === 0 && <div className="status-checking-section1">
-                      <p><span>Manager : </span><span className="pending1">Pending</span></p>
-                      <p><span>Dept Head : </span><span className="pending1">Pending</span></p>
+                      { user.role[0] === "Employee" && <p><span>Manager : </span><span className="pending1">Pending</span></p>}
+                      { (user.role[0] === "Employee" || user.role[0] === "Manager") && <p><span>Dept Head : </span><span className="pending1">Pending</span></p>}
                       <p><span>Director : </span><span className="pending1">Pending</span></p>
                     </div>}
 
                   { req.comments.length === 1 && req.status === "Rejected" && <div className="status-checking-section1">
-                      <p><span>Manager : </span><span className="rejected1">Rejected</span></p>
+                      {user.role[0] === "Employee" && <p><span>Manager : </span><span className="rejected1">Rejected</span></p>}
+                      {user.role[0] === "Employee" && <p><span>Dept Head : </span><span className="rejected1">Rejected</span></p>}
+                      {user.role[0] === "Employee" && <p><span>Director : </span><span className="rejected1">Rejected</span></p>}
                     </div>  }
 
                   { req.comments.length === 1 && req.status === "Pending" && <div className="status-checking-section1">
-                      <p><span>Manager : </span><span className="approved1">Approved</span></p>
+                     { user.role[0]==="Employee" && <><p><span>Manager : </span><span className="approved1">Approved</span></p>
                       <p><span>Dept Head : </span><span className="pending1">Pending</span></p>
-                      <p><span>Director : </span><span className="pending1">Pending</span></p>
+                      <p><span>Director : </span><span className="pending1">Pending</span></p></>}
+                      { user.role[0]==="Manager" && <><p><span>Dept Head : </span><span className="pending1">Approved</span></p>
+                      <p><span>Director : </span><span className="pending1">Pending</span></p></>}
                     </div>}
 
-                  { req.comments.length === 2 && req.status === "Rejected" && <div className="status-checking-section1">
+                  { user.role[0] === "Employee" && req.comments.length === 2 && req.status === "Rejected" && <div className="status-checking-section1">
                       <p><span>Manager : </span><span className="approved1">Approved</span></p>
+                      <p><span>Dept Head : </span><span className="rejected1">Rejected</span></p>
+
+                    </div>  }
+
+                  { user.role[0]==="Manager" && req.comments.length === 1 && req.status === "Rejected" && <div className="status-checking-section1">
                       <p><span>Dept Head : </span><span className="rejected1">Rejected</span></p>
                     </div>  }
 
-                  { req.comments.length === 2 && req.status === "Pending" && <div className="status-checking-section1">
+                  { user.role[0]==="Employee" && req.comments.length === 2 && req.status === "Pending" && <div className="status-checking-section1">
                       <p><span>Manager : </span><span className="approved1">Approved</span></p>
                       <p><span>Dept Head : </span><span className="approved1">Approved</span></p>
                       <p><span>Director : </span><span className="pending1">Pending</span></p>
                     </div>}
 
-                  { req.comments.length === 3 && req.status === "Rejected" && <div className="status-checking-section1">
+                  { user.role[0] === "Employee" && req.comments.length === 3 && req.status === "Rejected" && <div className="status-checking-section1">
                       <p><span>Manager : </span><span className="approved1">Approved</span></p>
                       <p><span>Dept Head : </span><span className="approved1">Approved</span></p>
                       <p><span>Director : </span><span className="rejected1">Rejected</span></p>
                     </div>  }
 
-                  { req.comments.length === 3 && req.status === "Approved" && <div className="status-checking-section1">
+                  { user.role[0] === "Employee" && req.comments.length === 3 && req.status === "Approved" && <div className="status-checking-section1">
                       <p><span>Manager : </span><span className="approved1">Approved</span></p>
                       <p><span>Dept Head : </span><span className="approved1">Approved</span></p>
+                      <p><span>Director : </span><span className="approved1">Approved</span></p>
+                    </div> }
+
+                  { user.role[0] === "Manager" && req.comments.length === 2 && req.status === "Approved" && <div className="status-checking-section1">
+                      <p><span>Dept Head : </span><span className="approved1">Approved</span></p>
+                      <p><span>Director : </span><span className="approved1">Approved</span></p>
+                    </div> }
+
+                  { user.role[0] === "Dept Head" && req.comments.length === 1 && req.status === "Approved" && <div className="status-checking-section1">
                       <p><span>Director : </span><span className="approved1">Approved</span></p>
                     </div> }
                   

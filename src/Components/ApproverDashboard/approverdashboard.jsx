@@ -15,7 +15,7 @@ const ApproverDashboard = () => {
   useEffect(() => {
       const fetchRequests1 = async () => {
         try {
-          const res = await fetch(`http://localhost:5000/requests/manager/managerapproval`, {
+          const res = await fetch(`https://workflow-backend-3.onrender.com/requests/manager/managerapproval`, {
             method:"PUT",
             headers: { "Content-Type": "application/json",
                         "Authorization": `Bearer ${Cookies.get('jwtToken')}`
@@ -32,7 +32,7 @@ const ApproverDashboard = () => {
   
   const fetchRequests = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/requests/manager/${selectedStatus.toLowerCase()}`, {
+      const res = await fetch(`https://workflow-backend-3.onrender.com/requests/manager/${selectedStatus.toLowerCase()}`, {
         method:"GET",
         headers: { "Content-Type": "application/json",
           "Authorization": `Bearer ${Cookies.get('jwtToken')}`

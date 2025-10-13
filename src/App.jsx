@@ -46,9 +46,41 @@ function App() {
           }
         />
         <Route
+          path="/manager/new-request"
+          element={
+            <ProtectedRoute allowedRoles={["Manager"]}>
+              <NewRequest />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/depthead/new-request"
+          element={
+            <ProtectedRoute allowedRoles={["Dept Head"]}>
+              <NewRequest />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/employee/my-requests"
           element={
             <ProtectedRoute allowedRoles={["Employee"]}>
+              <MyRequests />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/manager/my-requests"
+          element={
+            <ProtectedRoute allowedRoles={["Manager"]}>
+              <MyRequests />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/depthead/my-requests"
+          element={
+            <ProtectedRoute allowedRoles={["Dept Head"]}>
               <MyRequests />
             </ProtectedRoute>
           }

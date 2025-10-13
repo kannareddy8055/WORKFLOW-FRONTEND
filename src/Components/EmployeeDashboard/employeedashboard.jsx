@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { Plus } from 'lucide-react';
 import './employeedashboard.css'; // Import the CSS file
-import Header from '../Header/header';
-
+import Userheader from '../Userheader/UserHeader';
 const EmployeeDashboard = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredButton, setHoveredButton] = useState(null);
@@ -25,7 +24,7 @@ const EmployeeDashboard = () => {
   return (
     <div className="workflow-container">
       {/* Background with overlay */}
-      <div className="home-header"><Header /></div>
+      <div className="home-header"><Userheader /></div>
       <div className="background-overlay"></div>
       
       {/* Animated background elements */}
