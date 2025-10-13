@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from 'js-cookie';
-import Header from "../Header/header";
+import Userheader from "../Userheader/UserHeader.jsx";
 import "./admindashboard.css";
 import AdminRequestCard from "../AdminRequestCard/adminrequestcard.jsx";
 
@@ -57,7 +57,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="approver-dashboard-container">
-      <div className="header-container"><Header /></div>
+      <div className="header-container"><Userheader /></div>
       <div className="status-filter-container">
         <h2 className="approver-dashboard-title">Admin Dashboard</h2>
         
