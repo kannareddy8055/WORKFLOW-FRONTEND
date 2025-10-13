@@ -144,5 +144,4 @@ fetchRequestUser(request.createdBy);
   );
 };
 
-export default AdminRequestCard;
-
+export default AdminRequestCard; 

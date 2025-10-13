@@ -100,4 +100,4 @@ const DeptHeadDashboard = () => {
   );
 };
 
-export default DeptHeadDashboard;
+export default DeptHeadDashboard; 

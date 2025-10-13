@@ -105,4 +105,3 @@ const ManagerHomePage = () => {
 
 
 export default ManagerHomePage;
-

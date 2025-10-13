@@ -103,4 +103,3 @@ fetchRequestUser(request.createdBy);
 };
 
 export default RequestCard;
-
