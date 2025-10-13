@@ -11,9 +11,26 @@ const DirectorDashboard = () => {
   const status = ["Approved", "Rejected", "Pending"];
   const user = JSON.parse(localStorage.getItem("user")); // logged-in DeptHead
 
+  useEffect(() => {
+        const fetchRequests1 = async () => {
+          try {
+            const res = await fetch(`http://localhost:5000/requests/director/directorapproval`, {
+              method:"PUT",
+              headers: { "Content-Type": "application/json",
+                          "Authorization": `Bearer ${Cookies.get('jwtToken')}`
+              }
+            })
+        } catch (err) {
+          console.error("Error fetching requests", err);
+        }
+      };
+  
+      fetchRequests1();
+    }, [])
+
   const fetchRequests = async () => {
     try {
-      const res = await axios.get(`https://workflow-backend-3.onrender.com/requests/director/${selectedStatus.toLowerCase()}`);
+      const res = await axios.get(`http://localhost:5000/requests/director/${selectedStatus.toLowerCase()}`);
       setRequests(res.data.requests || []);
     } catch (err) {
       console.error("Error fetching DeptHead requests", err);
@@ -24,25 +41,7 @@ const DirectorDashboard = () => {
     fetchRequests();
   }, [selectedStatus]);
 
-  // const onChangeComments = (e) => {
-  //   setComments(e.target.value);
-  // }
-
-  // const handleAction = async (requestId, action) => {
-  //   try {
-  //     await axios.post(`http://localhost:5000/requests/director/${requestId}/action`, {
-  //       approverId: user._id,
-  //       role: user.role,
-  //       action,
-  //       comments
-  //     });
-  //     alert(`Request ${action}`);
-  //     setComments("");
-  //     fetchRequests();
-  //   } catch (err) {
-  //     console.error("Error updating request", err);
-  //   }
-  // };
+ 
 
   return (
     <div className="depthead-dashboard">
@@ -83,40 +82,3 @@ const DirectorDashboard = () => {
 export default DirectorDashboard;
 
 
-{/* <ul className="request-list">
-          {requests.map((req) => (
-            <li key={req._id} className="request-card">
-              <div className="request-details">
-                <div className="request-header">
-                   <strong className="request-title">{req.title}</strong>
-                   <p className="request-desc"><span className="desc-label">Description : </span>{req.title}</p>
-                </div>
-
-                 <div className="request-meta">
-                   <span className="request-type">( <span className="">{req.type}</span> )</span>
-                   {req.type === "BUDGET" && <span>Amount : <span>{req.amount}</span></span>}
-                 </div>
-                <span className={`request-status ${req.status.toLowerCase()}`}>{req.status}</span>
-
-                <div className="action-buttons">
-                 <button
-                  className="approve-btn"
-                  onClick={() => handleAction(req._id, "Approved")}
-                 >
-                  Approve
-                 </button>
-                 <button
-                  className="reject-btn"
-                  onClick={() => handleAction(req._id, "Rejected")}
-                 >
-                  Reject
-                 </button>
-              </div>
-              </div>
-              <div >
-                <input type="text" className="comments-input" placeholder="Add comments..." value={comments} onChange={onChangeComments} />
-              </div>
-              
-            </li>
-          ))}
-        </ul> */}

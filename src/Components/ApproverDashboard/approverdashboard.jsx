@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import Header from "../Header/header";
@@ -12,10 +12,27 @@ const ApproverDashboard = () => {
   const user = JSON.parse(localStorage.getItem("user")); // logged-in approver
 
   // ✅ move fetchRequests here
+  useEffect(() => {
+      const fetchRequests1 = async () => {
+        try {
+          const res = await fetch(`http://localhost:5000/requests/manager/managerapproval`, {
+            method:"PUT",
+            headers: { "Content-Type": "application/json",
+                        "Authorization": `Bearer ${Cookies.get('jwtToken')}`
+            }
+          })
+      } catch (err) {
+        console.error("Error fetching requests", err);
+      }
+    };
+
+    fetchRequests1();
+  }, [])
+    
   
   const fetchRequests = async () => {
     try {
-      const res = await fetch(`https://workflow-backend-3.onrender.com/requests/manager/${selectedStatus.toLowerCase()}`, {
+      const res = await fetch(`http://localhost:5000/requests/manager/${selectedStatus.toLowerCase()}`, {
         method:"GET",
         headers: { "Content-Type": "application/json",
           "Authorization": `Bearer ${Cookies.get('jwtToken')}`

@@ -3,7 +3,6 @@ import axios from "axios";
 import React from "react";
 import "./requests.css"; 
 
-
 const RequestCard = ({ request, fetchRequests }) => {
   const [userDetails, setUserDetails] = useState({name: "Loading..."});
   const [comments, setComments] = useState("") ;
@@ -26,7 +25,7 @@ const RequestCard = ({ request, fetchRequests }) => {
 
   const handleAction = async (requestId, action) => {
     try {
-      await axios.post(`https://workflow-backend-3.onrender.com/requests/${role}/${requestId}/action`, {
+      await axios.post(`http://localhost:5000/requests/${role}/${requestId}/action`, {
         approverId: user._id,
         role: user.role,
         action,
@@ -43,7 +42,7 @@ const RequestCard = ({ request, fetchRequests }) => {
  useEffect(() => {   
   const fetchRequestUser = async (createdBy) => {
     try {
-      const RequestByUser = await axios.get(`https://workflow-backend-3.onrender.com/request/user/${createdBy}`);
+      const RequestByUser = await axios.get(`http://localhost:5000/request/user/${createdBy}`);
       setUserDetails(RequestByUser.data.user);
     } catch (err) {
       console.error("Error fetching user details", err);
@@ -54,7 +53,9 @@ fetchRequestUser(request.createdBy);
 }, [request.createdBy]);
 
   return (
+    
     <li key={request._id} className="request-card">
+     
               <div className="request-details">
                 <div className="request-header">
                    <h1 className="request-title">Requested By : {userDetails.name}</h1>
@@ -95,8 +96,9 @@ fetchRequestUser(request.createdBy);
               <div >
                 <input type="text" className="comments-input" placeholder="Add comments..." value={comments} onChange={onChangeComments} />
               </div>
-              
+
             </li>
+
   );
 };
 

@@ -13,10 +13,26 @@ const DeptHeadDashboard = () => {
   const status = ["Approved", "Rejected", "Pending"];
   const user = JSON.parse(localStorage.getItem("user")); // logged-in DeptHead
 
-  
+   useEffect(() => {
+        const fetchRequests1 = async () => {
+          try {
+            const res = await fetch(`http://localhost:5000/requests/depthead/deptheadapproval`, {
+              method:"PUT",
+              headers: { "Content-Type": "application/json",
+                          "Authorization": `Bearer ${Cookies.get('jwtToken')}`
+              }
+            })
+        } catch (err) {
+          console.error("Error fetching requests", err);
+        }
+      };
+      
+      fetchRequests1();
+    }, [])
+
   const fetchRequests = async () => {
     try {
-      const res = await axios.get(`https://workflow-backend-3.onrender.com/requests/depthead/${selectedStatus.toLowerCase()}`);
+      const res = await axios.get(`http://localhost:5000/requests/depthead/${selectedStatus.toLowerCase()}`);
       setRequests(res.data.requests || []);
     } catch (err) {
       console.error("Error fetching DeptHead requests", err);
