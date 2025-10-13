@@ -25,7 +25,7 @@ const Userheader = () => {
           dashboardRoute = "/employee/my-requests"
      } else if (user.role[0] === "Admin") {
           homeRoute = "/admin"
-          dashboardRoute = "/admin"
+          dashboardRoute = "/admin/dashboard"
      }}
 
   return (
