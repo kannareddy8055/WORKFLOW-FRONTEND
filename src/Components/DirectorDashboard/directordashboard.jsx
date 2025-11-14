@@ -15,7 +15,7 @@ const DirectorDashboard = () => {
   useEffect(() => {
         const fetchRequests1 = async () => {
           try {
-            const res = await fetch(`https://workflow-backend-3.onrender.com/requests/director/directorapproval`, {
+            const res = await fetch(`http://localhost:5000/requests/director/directorapproval`, {
               method:"PUT",
               headers: { "Content-Type": "application/json",
                           "Authorization": `Bearer ${Cookies.get('jwtToken')}`
@@ -31,7 +31,7 @@ const DirectorDashboard = () => {
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get(`https://workflow-backend-3.onrender.com/requests/director/${selectedStatus.toLowerCase()}`);
+      const res = await axios.get(`http://localhost:5000/requests/director/${selectedStatus.toLowerCase()}`);
       setRequests(res.data.requests || []);
     } catch (err) {
       console.error("Error fetching DeptHead requests", err);

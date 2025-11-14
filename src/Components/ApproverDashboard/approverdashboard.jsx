@@ -15,7 +15,7 @@ const ApproverDashboard = () => {
   useEffect(() => {
       const fetchRequests1 = async () => {
         try {
-          const res = await fetch(`https://workflow-backend-3.onrender.com/requests/manager/managerapproval`, {
+          const res = await fetch(`http://localhost:5000/requests/manager/managerapproval`, {
             method:"PUT",
             headers: { "Content-Type": "application/json",
                         "Authorization": `Bearer ${Cookies.get('jwtToken')}`
@@ -25,14 +25,14 @@ const ApproverDashboard = () => {
         console.error("Error fetching requests", err);
       }
     };
-
+    
     fetchRequests1();
   }, [])
     
   
   const fetchRequests = async () => {
     try {
-      const res = await fetch(`https://workflow-backend-3.onrender.com/requests/manager/${selectedStatus.toLowerCase()}`, {
+      const res = await fetch(`http://localhost:5000/requests/manager/${selectedStatus.toLowerCase()}`, {
         method:"GET",
         headers: { "Content-Type": "application/json",
           "Authorization": `Bearer ${Cookies.get('jwtToken')}`
@@ -49,26 +49,6 @@ const ApproverDashboard = () => {
   useEffect(() => {
     fetchRequests();
   }, [selectedStatus]);
-
-  // const onChangeComments = (e) => {
-  //   setComments(e.target.value);
-  // }
-
-  // const handleAction = async (requestId, action) => {
-  //   try {
-  //     await axios.post(`http://localhost:5000/requests/manager/${requestId}/action`, {
-  //       approverId: user._id,
-  //       action,
-  //       comments
-  //     });
-      
-  //     alert(`Request ${action}`);
-  //     setComments("");
-  //     fetchRequests(); // ✅ now this works
-  //   } catch (err) {
-  //     console.error("Error updating request", err);
-  //   }
-  // };
 
 
 

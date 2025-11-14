@@ -28,4 +28,7 @@
   position: relative;
   top:12px;
 }
-
+.request-role {
+  font-size: 0.9rem;
+  color: #555;
+}

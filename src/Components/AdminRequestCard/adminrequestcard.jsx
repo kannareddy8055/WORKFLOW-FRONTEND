@@ -18,7 +18,7 @@ const AdminRequestCard = ({ request, fetchRequests }) => {
   const handleSetCurrentStep = async (stepValue) => {
     try {
       await axios.post(
-        `https://workflow-backend-3.onrender.com/requests/admin/${request._id}/set-step`,
+        `http://localhost:5000/requests/admin/${request._id}/set-step`,
         { setCurrentStep: stepValue }
       );
       fetchRequests(); // Refresh the list
@@ -29,7 +29,7 @@ const AdminRequestCard = ({ request, fetchRequests }) => {
 
   const handleAction = async (requestId, action) => {
     try {
-      await axios.post(`https://workflow-backend-3.onrender.com/requests/${role}/${requestId}/action`, {
+      await axios.post(`http://localhost:5000/requests/${role}/${requestId}/action`, {
         approverId: user._id,
         role: user.role,
         action,
@@ -44,7 +44,7 @@ const AdminRequestCard = ({ request, fetchRequests }) => {
  useEffect(() => {   
   const fetchRequestUser = async (createdBy) => {
     try {
-      const RequestByUser = await axios.get(`https://workflow-backend-3.onrender.com/request/user/${createdBy}`);
+      const RequestByUser = await axios.get(`http://localhost:5000/request/user/${createdBy}`);
       setUserDetails(RequestByUser.data.user);
     } catch (err) {
       console.error("Error fetching user details", err);
@@ -58,7 +58,7 @@ fetchRequestUser(request.createdBy);
     <li key={request._id} className="request-card">
               <div className="request-details">
                 <div className="request-header">
-                   <h1 className="request-title">Requested By : {userDetails.name}</h1>
+                   <h1 className="request-title">Requested By : {userDetails.name} <span className="request-role">({request.role})</span></h1>
                    <strong className="request-title">{request.title}</strong>
                    <p className="request-desc"><span className="desc-label">Description : </span>{request.description}</p>
                 </div>
